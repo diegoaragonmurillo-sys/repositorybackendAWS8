@@ -1,10 +1,19 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
+require('dotenv').config()
+const http = require('http')
 
-app.get('/', (req, res) => {
-  res.send('¡Backend desplegado correctamente!');
-});
+function requestController(req, res){
+    console.log('Bienvenidos al curso')
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+    res.end(`
+        <h1>Bienvenidos al curso</h1>
+        <p>Aplicación desplegada en Render por Diego Aragón Murillo</p>
+    `)
+}
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+const server = http.createServer(requestController)
+
+const PORT = process.env.PORT || 3000
+
+server.listen(PORT, function(){
+    console.log("Aplicacion corriendo en: " + PORT)
+})
